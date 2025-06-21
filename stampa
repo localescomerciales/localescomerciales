@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locales en Alquiler</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 15mm;
+            color: #333;
+        }
+        .aviso {
+            border: 3px solid #2c3e50;
+            border-radius: 10px;
+            padding: 10mm;
+            height: 277mm;
+            box-sizing: border-box;
+            position: relative;
+        }
+        h1 {
+            color: #e74c3c;
+            text-align: center;
+            font-size: 28pt;
+            margin-top: 0;
+        }
+        .local {
+            margin-bottom: 8mm;
+        }
+        .local h2 {
+            background-color: #2c3e50;
+            color: white;
+            padding: 3mm;
+            font-size: 18pt;
+            border-radius: 5px;
+        }
+        .specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3mm;
+        }
+        .spec-item {
+            background: #f0f0f0;
+            padding: 3mm;
+            border-radius: 3px;
+        }
+        .contact-box {
+            background: #2c3e50;
+            color: white;
+            padding: 8mm;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 10mm;
+        }
+        .whatsapp-btn {
+            display: inline-block;
+            background: #25D366;
+            color: white;
+            padding: 5mm 10mm;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16pt;
+            margin: 5mm;
+        }
+        .qr-section {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 10mm;
+        }
+        .qr-code {
+            text-align: center;
+        }
+        .qr-code img {
+            width: 50mm;
+            height: 50mm;
+            border: 1px solid #ddd;
+            padding: 3mm;
+            background: white;
+        }
+        .footer {
+            position: absolute;
+            bottom: 10mm;
+            width: calc(100% - 20mm);
+            text-align: center;
+            font-size: 10pt;
+            color: #777;
+        }
+        @media print {
+            .whatsapp-btn {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="aviso">
+        <h1>LOCALES COMERCIALES EN ALQUILER</h1>
+        
+        <div class="local">
+            <h2>📍 Local Grande - 90 m²</h2>
+            <div class="specs">
+                <div class="spec-item"><strong>Piso:</strong> Segundo</div>
+                <div class="spec-item"><strong>Baño:</strong> Privado</div>
+                <div class="spec-item"><strong>Ideal para:</strong> Oficinas/Showroom</div>
+                <div class="spec-item"><strong>Ubicación:</strong> Esquina con Av. Los Quechuas</div>
+            </div>
+        </div>
+        
+        <div class="local">
+            <h2>📍 Local Pequeño - 15 m²</h2>
+            <div class="specs">
+                <div class="spec-item"><strong>Piso:</strong> Planta baja</div>
+                <div class="spec-item"><strong>Baño:</strong> Privado</div>
+                <div class="spec-item"><strong>Ideal para:</strong> Tiendas/Kioskos</div>
+                <div class="spec-item"><strong>Ubicación:</strong> Entrada principal</div>
+            </div>
+        </div>
+        
+        <div class="contact-box">
+            <h2>CONTACTO INMEDIATO</h2>
+            <a href="https://wa.me/123456" class="whatsapp-btn">💬 WhatsApp: 123 456</a>
+        </div>
+        
+        <div class="qr-section">
+            <div class="qr-code">
+                <p><strong>Más información:</strong></p>
+                <!-- Genera este QR con https://qr-code-generator.com -->
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tusuario.github.io/locales-comerciales" alt="QR a la página web">
+                <p>Escanea para ver detalles</p>
+            </div>
+            <div class="qr-code">
+                <p><strong>Contactar por WhatsApp:</strong></p>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/123456" alt="QR a WhatsApp">
+                <p>Escanea para chatear</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            ℹ Disponibilidad sujeta a contratación - Precios a convenir
+        </div>
+    </div>
+</body>
+</html>
