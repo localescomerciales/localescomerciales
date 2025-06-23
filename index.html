@@ -114,6 +114,7 @@
         }
         .telegram-btn:hover {
             background: #006699;
+        } /* Manca questa parentesi nel codice originale */
         footer {
             text-align: center;
             margin-top: 50px;
@@ -121,7 +122,7 @@
             color: #777;
         }
 
-        /* LIGHTBOX MEJORADO */
+        /* LIGHTBOX */
         #lightbox {
             display: none;
             position: fixed;
@@ -222,7 +223,7 @@
         <div class="gallery">
             <img src="images/local-grande-externo.jpg" alt="Local Grande" onclick="openLightbox(this)">
             <img src="images/local-grande-externo2.jpg" alt="Local Grande" onclick="openLightbox(this)">
-  <img src="images/local-grande-interno.jpg" alt="Local Grande" onclick="openLightbox(this)">
+            <img src="images/local-grande-interno.jpg" alt="Local Grande" onclick="openLightbox(this)">
         </div>
     </div>
 
@@ -247,10 +248,10 @@
         
         <div class="gallery">
             <img src="images/local-small.jpg" alt="Local Pequeño" onclick="openLightbox(this)">
- <img src="images/local-small2.jpg" alt="Local Pequeño" onclick="openLightbox(this)">
- <img src="images/local-small3.jpg" alt="Local Pequeño" onclick="openLightbox(this)">
- <img src="images/local-small4.jpg" alt="Local Pequeño" onclick="openLightbox(this)">
- <img src="images/local-small5.jpg" alt="Local Pequeño" onclick="openLightbox(this)">
+            <img src="images/local-small2.jpg" alt="Local Pequeño" onclick="openLightbox(this)">
+            <img src="images/local-small3.jpg" alt="Local Pequeño" onclick="openLightbox(this)">
+            <img src="images/local-small4.jpg" alt="Local Pequeño" onclick="openLightbox(this)">
+            <img src="images/local-small5.jpg" alt="Local Pequeño" onclick="openLightbox(this)">
         </div>
     </div>
 
@@ -260,17 +261,18 @@
         
         <div class="contact-methods">
             <a href="mailto:localescomerciales@proton.me" class="contact-btn">✉ Enviar Email</a>
-            <a href="https://1602.3cx.cloud/callus/#losquechuas" class="contact-btn">📞 Llama alhora</a>
+            <a href="https://1602.3cx.cloud/callus/#losquechuas" class="contact-btn">📞 Llama ahora</a>
             <a href="https://wa.me/+51924888920" class="contact-btn whatsapp-btn">💬 WhatsApp</a>
             <a href="https://t.me/cranius" class="contact-btn telegram-btn">✈️ Telegram</a>
             <a href="https://maps.app.goo.gl/QwZShDKFmvy3oW1G6" class="contact-btn">📍 Ubicación en mapa</a>
-</div>
+        </div>
+    </div>
 
     <footer>
         <p>© 2023 Locales Comerciales en Lima. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- LIGHTBOX MEJORADO -->
+    <!-- LIGHTBOX -->
     <div id="lightbox">
         <span id="close" onclick="closeLightbox()">&times;</span>
         <div class="nav-btn" id="prev" onclick="changeImage(-1)">&#10094;</div>
@@ -279,52 +281,39 @@
     </div>
 
     <script>
-        // Variables para la galería
-        let currentImageIndex = 0;
+        // Lightbox migliorato
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-image');
         const images = Array.from(document.querySelectorAll('.gallery img'));
-        
-        // Abrir lightbox
+        let currentImageIndex = 0;
+
         function openLightbox(img) {
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightbox-image');
-            
-            currentImageIndex = images.findIndex(image => image.src === img.src);
+            currentImageIndex = images.indexOf(img);
             lightbox.style.display = 'block';
             lightboxImg.src = img.src;
             document.body.style.overflow = 'hidden';
         }
-        
-        // Cerrar lightbox
+
         function closeLightbox() {
-            document.getElementById('lightbox').style.display = 'none';
+            lightbox.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
-        
-        // Cambiar imagen
-        function changeImage(direction) {
-            currentImageIndex += direction;
-            
-            if (currentImageIndex >= images.length) {
-                currentImageIndex = 0;
-            } else if (currentImageIndex < 0) {
-                currentImageIndex = images.length - 1;
-            }
-            
-            document.getElementById('lightbox-image').src = images[currentImageIndex].src;
+
+        function changeImage(step) {
+            currentImageIndex = (currentImageIndex + step + images.length) % images.length;
+            lightboxImg.src = images[currentImageIndex].src;
         }
-        
-        // Eventos
-        document.addEventListener('keydown', function(e) {
+
+        // Controlli da tastiera
+        document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeLightbox();
             if (e.key === 'ArrowLeft') changeImage(-1);
             if (e.key === 'ArrowRight') changeImage(1);
         });
-        
-        // Cerrar al hacer clic fuera de la imagen
-        document.getElementById('lightbox').addEventListener('click', function(e) {
-            if (e.target.id === 'lightbox') {
-                closeLightbox();
-            }
+
+        // Chiudi cliccando sullo sfondo
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
         });
     </script>
 </body>
