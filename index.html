@@ -194,6 +194,20 @@
                 right: 10px;
             }
         }
+/* Mobile: 2 foto affiancate SOLO per le foto verticali */
+@media (max-width: 600px) {
+    .vertical-gallery {
+        grid-template-columns: repeat(2, 1fr) !important; /* 2 colonne */
+    }
+    
+    .vertical-gallery img {
+        width: 100% !important;
+        height: auto !important;          /* Mantiene proporzioni originali */
+        min-height: 180px;                /* Altezza minima uniforme */
+        object-fit: contain !important;   /* Mostra tutta l'immagine */
+        background: #f5f5f5;              /* Sfondo per spazi vuoti */
+    }
+}
     </style>
 </head>
 <body>
@@ -247,7 +261,7 @@
             </div>
         </div>
         
-        <div class="gallery">
+        <div class="gallery vertical-gallery">
             <img src="images/local-small.webp" alt="Local Pequeño" onclick="openLightbox(this)">
             <img src="images/local-small2.jpg" alt="Local Pequeño" onclick="openLightbox(this)">
             <img src="images/local-small3.jpg" alt="Local Pequeño" onclick="openLightbox(this)">
