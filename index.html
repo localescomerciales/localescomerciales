@@ -178,20 +178,27 @@
             .contact-methods {
                 flex-direction: column;
             }
+           .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        /* Modifica SOLO per mobile */
+        @media (max-width: 600px) {
             .gallery {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr); /* 2 colonne */
             }
-            #lightbox img {
-                max-width: 95%;
+            
+            .gallery img {
+                height: 150px; /* Altezza ridotta */
+                object-fit: cover; /* Ritaglia le foto mantenendo le proporzioni */
             }
-            .nav-btn {
-                font-size: 40px;
-            }
-            #prev {
-                left: 10px;
-            }
-            #next {
-                right: 10px;
+            
+            /* Regola specifica per le foto verticali */
+            .gallery img[src*="local-small"] {
+                object-position: center top; /* Allinea la parte superiore */
             }
         }
     </style>
