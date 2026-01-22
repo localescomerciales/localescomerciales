@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Locales Comerciales en Alquiler | Lima</title>
+    
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
     <meta name="description" content="Locales comerciales en alquiler en Lima. Local de 90m² en segundo piso y local de 15m² en planta baja, ideales para negocios. ¡Contáctanos ahora!">
     <style>
         :root {
@@ -115,7 +118,7 @@
         }
         .telegram-btn:hover {
             background: #006699;
-        } /* Manca questa parentesi nel codice originale */
+        } 
         footer {
             text-align: center;
             margin-top: 50px;
@@ -194,25 +197,23 @@
                 right: 10px;
             }
         }
-/* Mobile: 2 foto affiancate SOLO per le foto verticali */
-@media (max-width: 600px) {
-    .vertical-gallery {
-        grid-template-columns: repeat(2, 1fr) !important; /* 2 colonne */
-    }
-    
-    .vertical-gallery img {
-        width: 100% !important;
-        height: auto !important;          /* Mantiene proporzioni originali */
-        min-height: 180px;                /* Altezza minima uniforme */
-        object-fit: contain !important;   /* Mostra tutta l'immagine */
-        background: #f5f5f5;              /* Sfondo per spazi vuoti */
-    }
-}
+        @media (max-width: 600px) {
+            .vertical-gallery {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+            .vertical-gallery img {
+                width: 100% !important;
+                height: auto !important;
+                min-height: 180px;
+                object-fit: contain !important;
+                background: #f5f5f5;
+            }
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Locales Comerciales en Alquiler</h1>
+        <h1 id="main-title">Locales Comerciales en Alquiler</h1>
         <p>Excelentes espacios en ubicación privilegiada - Lima, Terpsícore con Av. Los Quechuas</p>
     </header>
 
@@ -221,18 +222,10 @@
         <h3>90 m² - Segundo piso</h3>
         
         <div class="specs">
-            <div class="spec-item">
-                <strong>Área:</strong> 90 m²
-            </div>
-            <div class="spec-item">
-                <strong>Piso:</strong> Segundo
-            </div>
-            <div class="spec-item">
-                <strong>Baño:</strong> Incluido
-            </div>
-            <div class="spec-item">
-                <strong>Ideal para:</strong> Oficinas, showroom, academia
-            </div>
+            <div class="spec-item"><strong>Área:</strong> 90 m²</div>
+            <div class="spec-item"><strong>Piso:</strong> Segundo</div>
+            <div class="spec-item"><strong>Baño:</strong> Incluido</div>
+            <div class="spec-item"><strong>Ideal para:</strong> Oficinas, showroom, academia</div>
         </div>
         
         <div class="gallery">
@@ -247,18 +240,10 @@
         <h3>15 m² - Planta baja</h3>
         
         <div class="specs">
-            <div class="spec-item">
-                <strong>Área:</strong> 15 m²
-            </div>
-            <div class="spec-item">
-                <strong>Piso:</strong> Planta baja
-            </div>
-            <div class="spec-item">
-                <strong>Baño:</strong> Incluido
-            </div>
-            <div class="spec-item">
-                <strong>Ideal para:</strong> Kiosko, tienda pequeña, oficina individual
-            </div>
+            <div class="spec-item"><strong>Área:</strong> 15 m²</div>
+            <div class="spec-item"><strong>Piso:</strong> Planta baja</div>
+            <div class="spec-item"><strong>Baño:</strong> Incluido</div>
+            <div class="spec-item"><strong>Ideal para:</strong> Kiosko, tienda pequeña, oficina individual</div>
         </div>
         
         <div class="gallery vertical-gallery">
@@ -278,7 +263,7 @@
             <a href="mailto:localescomerciales@proton.me" class="contact-btn">✉ Enviar Email</a>
             <a href="https://1602.3cx.cloud/callus/#losquechuas" class="contact-btn">📞 Llama ahora</a>
             <a href="https://wa.me/+51924888920" class="contact-btn whatsapp-btn">💬 WhatsApp</a>
-            <a href="https://t.me/cranius" class="contact-btn telegram-btn">✈️ Telegram</a>
+            <a href="https://t.me/cranius" id="tg-btn" class="contact-btn telegram-btn">✈️ Telegram</a>
             <a href="https://maps.app.goo.gl/QwZShDKFmvy3oW1G6" class="contact-btn">📍 Ubicación en mapa</a>
         </div>
     </div>
@@ -287,16 +272,31 @@
         <p>© 2023 Locales Comerciales en Lima. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- LIGHTBOX -->
     <div id="lightbox">
-        <span id="close" onclick="closeLightbox()">&times;</span>
-        <div class="nav-btn" id="prev" onclick="changeImage(-1)">&#10094;</div>
+        <span id="close" onclick="closeLightbox()">×</span>
+        <div class="nav-btn" id="prev" onclick="changeImage(-1)">❮</div>
         <img id="lightbox-image" src="">
-        <div class="nav-btn" id="next" onclick="changeImage(1)">&#10095;</div>
+        <div class="nav-btn" id="next" onclick="changeImage(1)">❯</div>
     </div>
 
     <script>
-        // Lightbox migliorato
+        // --- LOGICA TELEGRAM MINI APP ---
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand(); // Espande l'app all'apertura
+
+        // Personalizzazione opzionale: mostra il nome utente nel titolo
+        if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+            document.getElementById('main-title').innerText = "Hola " + tg.initDataUnsafe.user.first_name + "!";
+        }
+
+        // Nasconde il tasto Telegram interno alla pagina se siamo già in Telegram
+        document.getElementById('tg-btn').style.display = 'none';
+        
+        // Colora l'header di Telegram con il tuo colore primario (#2c3e50)
+        tg.setHeaderColor('#2c3e50');
+
+        // --- LOGICA LIGHTBOX ORIGINALE ---
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-image');
         const images = Array.from(document.querySelectorAll('.gallery img'));
@@ -319,14 +319,12 @@
             lightboxImg.src = images[currentImageIndex].src;
         }
 
-        // Controlli da tastiera
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeLightbox();
             if (e.key === 'ArrowLeft') changeImage(-1);
             if (e.key === 'ArrowRight') changeImage(1);
         });
 
-        // Chiudi cliccando sullo sfondo
         lightbox.addEventListener('click', (e) => {
             if (e.target === lightbox) closeLightbox();
         });
