@@ -161,4 +161,145 @@
             cursor: pointer;
             z-index: 1001;
             user-select: none;
-            opacity: 0
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        .nav-btn:hover {
+            opacity: 1;
+        }
+        #prev { left: 30px; }
+        #next { right: 30px; }
+
+        @media (max-width: 600px) {
+            .specs { grid-template-columns: 1fr; }
+            .contact-methods { flex-direction: column; }
+            .gallery { grid-template-columns: 1fr; }
+            #lightbox img { max-width: 95%; }
+            .nav-btn { font-size: 40px; }
+            #prev { left: 10px; }
+            #next { right: 10px; }
+        }
+        @media (max-width: 600px) {
+            .vertical-gallery { grid-template-columns: repeat(2, 1fr) !important; }
+            .vertical-gallery img {
+                width: 100% !important;
+                height: auto !important;
+                min-height: 180px;
+                object-fit: contain !important;
+                background: #f5f5f5;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 id="main-title">Locales Comerciales en Alquiler</h1>
+        <p>Excelentes espacios en ubicación privilegiada - Lima, Terpsícore con Av. Los Quechuas</p>
+    </header>
+
+    <div class="local">
+        <h2>Local Grande</h2>
+        <h3>90 m² - Segundo piso</h3>
+        
+        <div class="specs">
+            <div class="spec-item"><strong>Área:</strong> 90 m²</div>
+            <div class="spec-item"><strong>Piso:</strong> Segundo</div>
+            <div class="spec-item"><strong>Baño:</strong> Incluido</div>
+            <div class="spec-item"><strong>Ideal para:</strong> Oficinas, showroom, academia</div>
+        </div>
+        
+        <div class="gallery">
+            <img src="images/local-grande-externo.webp" alt="Local Grande" onclick="openLightbox(this)">
+            <img src="images/local-grande-externo2.webp" alt="Local Grande" onclick="openLightbox(this)">
+            <img src="images/local-grande-interno.webp" alt="Local Grande" onclick="openLightbox(this)">
+        </div>
+    </div>
+
+    <div class="local">
+        <h2>Local Pequeño</h2>
+        <h3>15 m² - Planta baja</h3>
+        
+        <div class="specs">
+            <div class="spec-item"><strong>Área:</strong> 15 m²</div>
+            <div class="spec-item"><strong>Piso:</strong> Planta baja</div>
+            <div class="spec-item"><strong>Baño:</strong> Incluido</div>
+            <div class="spec-item"><strong>Ideal para:</strong> Kiosko, tienda pequeña, oficina individual</div>
+        </div>
+        
+        <div class="gallery vertical-gallery">
+            <img src="images/local-small.webp" alt="Local Pequeño" onclick="openLightbox(this)">
+            <img src="images/local-small2.jpg" alt="Local Pequeño" onclick="openLightbox(this)">
+            <img src="images/local-small3.jpg" alt="Local Pequeño" onclick="openLightbox(this)">
+            <img src="images/local-small4.jpg" alt="Local Pequeño" onclick="openLightbox(this)">
+            <img src="images/local-small5.jpg" alt="Local Pequeño" onclick="openLightbox(this)">
+        </div>
+    </div>
+
+    <div class="contact-box">
+        <h2>Contacto</h2>
+        <p>Interesados en alquilar estos locales comerciales, contáctenos:</p>
+        
+        <div class="contact-methods">
+            <a href="mailto:localescomerciales@proton.me" class="contact-btn">✉ Enviar Email</a>
+            <a href="https://1602.3cx.cloud/callus/#losquechuas" class="contact-btn">📞 Llama ahora</a>
+            <a href="https://wa.me/+51924888920" class="contact-btn whatsapp-btn">💬 WhatsApp</a>
+            <a href="https://t.me/cranius" class="contact-btn telegram-btn">✈️ Telegram</a>
+            <a href="https://maps.app.goo.gl/QwZShDKFmvy3oW1G6" class="contact-btn">📍 Ubicación en mapa</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2023 Locales Comerciales en Lima. Todos los derechos reservados.</p>
+    </footer>
+
+    <div id="lightbox">
+        <span id="close" onclick="closeLightbox()">×</span>
+        <div class="nav-btn" id="prev" onclick="changeImage(-1)">❮</div>
+        <img id="lightbox-image" src="">
+        <div class="nav-btn" id="next" onclick="changeImage(1)">❯</div>
+    </div>
+
+    <script>
+        // --- LOGICA TELEGRAM MINI APP ---
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand(); 
+        
+        // Impostiamo il colore dell'header Telegram
+        tg.setHeaderColor('#2c3e50');
+
+        // --- LOGICA LIGHTBOX ---
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-image');
+        const images = Array.from(document.querySelectorAll('.gallery img'));
+        let currentImageIndex = 0;
+
+        function openLightbox(img) {
+            currentImageIndex = images.indexOf(img);
+            lightbox.style.display = 'block';
+            lightboxImg.src = img.src;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function changeImage(step) {
+            currentImageIndex = (currentImageIndex + step + images.length) % images.length;
+            lightboxImg.src = images[currentImageIndex].src;
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') changeImage(-1);
+            if (e.key === 'ArrowRight') changeImage(1);
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+    </script>
+</body>
+</html>
